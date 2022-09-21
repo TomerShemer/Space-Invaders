@@ -1,0 +1,46 @@
+body {
+    background-color: #000;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
+button {
+    height: 50px;
+    width: 125px;
+    border-radius: 20px;
+}
+
+.start-btn {
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.start-btn:hover {
+    background-color: gray;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+td {
+    height: 50px;
+    width: 50px;
+    border: 1px white solid;
+}
+
+.modal {
+    background-color: #000;
+    border: 5px white solid;
+    height: 250px;
+    width: 350px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+/* .modal button {} */

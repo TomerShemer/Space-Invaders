@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/alien-fav.png" type="image/x-icon">
+</head>
+
+<body onload="init()" onkeydown="onKeyDown(event)">
+
+    <h1>Space Invaders!</h1>
+
+    <table class="game-container">
+        <h3>Score: <span class="score">0</span></h3>
+        <button class="start-btn" onclick="startGame()" onkeydown="this.blur()">Start Game</button>
+        <tbody></tbody>
+    </table>
+
+    <div class="modal">
+        <h2>Modal</h2>
+        <h3>Final Score: <span class="modal-score"></span></h3>
+        <button class="restart-btn" onclick="init()">Restart</button>
+    </div>
+
+    <script src="js/util.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/alien.js"></script>
+</body>
+
+</html>

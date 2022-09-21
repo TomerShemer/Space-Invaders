@@ -1,6 +1,6 @@
 'use strict'
 
-const LASER_SPEED = 80
+const LASER_SPEED = 150
 
 var gHero = {
     pos: { i: 13, j: 5 },
@@ -71,14 +71,26 @@ function blinkLaser(pos) {
     }
 
     const currCell = gBoard[pos.i][pos.j].gameObject
+    // if (!currCell) {
+    //     updateCell(pos, LASER)
+    //     setTimeout(updateCell, LASER_SPEED, { i: pos.i, j: pos.j })
+    //     pos.i--
+    // } else {
+    //     gHero.isShoot = false
+    //     console.log('hitting alien')
+    //     handleAlienHit(pos)
+    // }
+
+
     if (currCell !== ALIEN) {
         updateCell(pos, LASER)
         setTimeout(updateCell, LASER_SPEED, { i: pos.i, j: pos.j })
         pos.i--
     } else {
         gHero.isShoot = false
+        console.log('hitting alien')
         handleAlienHit(pos)
-        console.log('Hit!')
+
     }
 
 }

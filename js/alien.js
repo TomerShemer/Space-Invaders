@@ -1,6 +1,6 @@
 'use strict'
 
-const ALIEN_SPEED = 750;
+const ALIEN_SPEED = 1000;
 
 var gIntervalAliens;
 // The following two variables represent the part of the matrix 
@@ -28,7 +28,7 @@ function createAliens(board) {
 }
 
 function handleAlienHit(pos) {
-    clearInterval(gShotInterval)
+    console.log('Hit!')
     //Model
     gGame.aliensCount--
     // gHero.isShoot = false
@@ -45,6 +45,7 @@ function handleAlienHit(pos) {
     checkAlienColCount()
     checkAlienRowCount()
 
+    clearInterval(gShotInterval)
 }
 
 function checkAlienColCount() {
@@ -56,6 +57,7 @@ function checkAlienColCount() {
         if (gBoard[i][gAliensRightIdx].gameObject === ALIEN) isRightColAlive = true
     }
 
+    if (gAliensLeftIdx === gAliensRightIdx) return
     if (!isLeftColAlive) {
         gAliensLeftIdx++
         checkAlienColCount()
@@ -73,6 +75,7 @@ function checkAlienRowCount() {
         if (gBoard[gAliensBottomRowIdx][i].gameObject === ALIEN) isBottomRowAlive = true
     }
 
+    if (gAliensBottomRowIdx === gAliensTopRowIdx) return
     if (!isBottomRowAlive) {
         gAliensBottomRowIdx--
         checkAlienRowCount()
@@ -86,8 +89,10 @@ function shiftBoardRight(board, fromI, toI) {
             if (board[i][j + 1].gameObject === LASER) {
                 // board[i][j].gameObject = null
                 // board[i][j + 1].gameObject = null
-                clearInterval(gShotInterval)
                 handleAlienHit({ i: i, j: j + 1 })
+                clearInterval(gShotInterval)
+                gHero.isShoot = false
+
             } else {
                 board[i][j + 1].gameObject = board[i][j].gameObject
                 board[i][j].gameObject = null
@@ -109,8 +114,9 @@ function shiftBoardLeft(board, fromI, toI) {
             if (board[i][j - 1].gameObject === LASER) {
                 // board[i][j - 1].gameObject = null
                 // board[i][j].gameObject = null
-                clearInterval(gShotInterval)
                 handleAlienHit({ i: i, j: j - 1 })
+                clearInterval(gShotInterval)
+                gHero.isShoot = false
             } else {
                 board[i][j - 1].gameObject = board[i][j].gameObject
                 board[i][j].gameObject = null
@@ -132,8 +138,9 @@ function shiftBoardDown(board, fromI, toI) {
             if (board[i + 1][j].gameObject === LASER) {
                 // board[i + 1][j].gameObject = null
                 // board[i][j].gameObject = null
-                clearInterval(gShotInterval)
                 handleAlienHit({ i: i - 1, j: j })
+                clearInterval(gShotInterval)
+                gHero.isShoot = false
             } else {
                 board[i + 1][j].gameObject = board[i][j].gameObject
                 board[i][j].gameObject = null

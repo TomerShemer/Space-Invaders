@@ -1,35 +1,53 @@
 body {
-    background-color: #000;
     text-align: center;
     color: white;
     font-size: 25px;
+    font-family: monospace;
+    background-image: url("../img/space.jpg");
+    background-size: cover;
 }
 
 button {
     height: 50px;
     width: 125px;
     border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .start-btn {
-    margin-bottom: 20px;
-    cursor: pointer;
     transition: background-color 0.5s;
+    display: block;
+    margin: auto;
 }
 
-.start-btn:hover {
+
+button:hover {
     background-color: gray;
 }
 
 table {
     margin: auto;
     border-collapse: collapse;
+    border: 3px white solid;
+    background-color: #000;
+    margin-top: 10px;
 }
 
 td {
     height: 50px;
     width: 50px;
-    border: 1px white solid;
+    outline: 1px white solid;
+}
+
+.controls {
+    height: 728px;
+    width: 250px;
+    background-color: #000;
+    transform: translate(25%, -100%);
+    position: absolute;
+    border: 3px white solid;
 }
 
 .modal {
@@ -42,5 +60,3 @@ td {
     transform: translate(-50%, -50%);
     position: absolute;
 }
-
-/* .modal button {} */

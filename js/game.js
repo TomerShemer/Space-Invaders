@@ -1,14 +1,40 @@
 'use strict'
 
 const BOARD_SIZE = 14
-const ALIENS_ROW_LENGTH = 8
-const ALIENS_ROW_COUNT = 3
+var aliensRowLength = 8
+var aliensRowCount = 3
 
 const HERO = '♆'
-const ALIEN = '👽'
-const DEAD_ALIEN = '💥'
-const LASER = '⤊'
+const INVUL_HERO = '🔱'
+const ALIEN1 = '👾'
+const ALIEN2 = '👽'
+const ALIEN3 = '👹'
+const ALIEN4 = '👻'
+const ALIEN_SHOT = '⚡'
+const DEAD_HERO = '💥'
+const LASER = '💠'
+const SUPER_LASER = '🔸'
+const SPACE_CANDY = '🍬'
+const LIFE = '💖'
+const BUNKER = '🌟'
 
+var gDifficulty = {
+    easy: {
+        rowLength: 4,
+        rowCount: 3,
+        speed: 1500
+    },
+    medium: {
+        rowLength: 8,
+        rowCount: 3,
+        speed: 1000
+    },
+    hard: {
+        rowLength: 10,
+        rowCount: 4,
+        speed: 500
+    }
+}
 
 var gBoard
 var gGame = {
@@ -16,20 +42,32 @@ var gGame = {
     aliensCount: 0,
     isWin: false,
     score: 0,
-
+    candyInterval: null,
 }
 
 
-function init() {
+function init(difficulty = gDifficulty.medium) {
+    // difficulty
+    aliensRowLength = difficulty.rowLength
+    aliensRowCount = difficulty.rowCount
+
     // gGame
+    clearInterval(gGame.candyInterval)
     gGame.isOn = false
     gGame.aliensCount = 0
     gGame.isWin = false
     gGame.score = 0
+    gGame.candyInterval = setInterval(createSpaceCandy, 10000)
 
     // gHero
     gHero.pos = { i: 13, j: 5 }
     gHero.isShoot = false
+    gHero.isExplosive = false
+    gHero.isSuperShot = false
+    gHero.superShotAmmo = 3
+    gHero.lives = 3
+    gHero.shieldAmmo = 3
+    gHero.isInvul = false
 
     // board
     gBoard = createBoard()
@@ -37,20 +75,31 @@ function init() {
     createHero(gBoard)
     renderBoard()
 
+
     // Aliens
+    clearInterval(gIntervalAliens)
+    clearInterval(gAliensShootingInterval)
+    clearInterval(gAlienShotInterval)
+    clearInterval(gAlienBugPlaster)
+    gAlienSpeed = difficulty.speed
     gIsAlienFreeze = true
     gAliensTopRowIdx = 0
-    gAliensBottomRowIdx = ALIENS_ROW_COUNT - 1
+    gAliensBottomRowIdx = aliensRowCount - 1
     gAliensLeftIdx = 0
-    gAliensRightIdx = ALIENS_ROW_LENGTH - 1
+    gAliensRightIdx = aliensRowLength - 1
     gAliensDirection = 'right'
-    gIntervalAliens = setInterval(moveAliens, ALIEN_SPEED)
+    gIsAlienShooting = false
+    gIntervalAliens = setInterval(moveAliens, gAlienSpeed)
+    gAliensShootingInterval = setInterval(alienShoot, 6500)
+    gAlienBugPlaster = setInterval(areAlienDeadPlaster, 3000)
 
     // Dom
     document.querySelector('.modal').style.visibility = 'hidden'
     document.querySelector('.start-btn').style.backgroundColor = 'white'
     document.querySelector('.start-btn').innerText = 'Start Game'
     document.querySelector('.score').innerText = 0
+    document.querySelector('.super-ammo').innerText = gHero.superShotAmmo
+    document.querySelector('.lives').innerText = gHero.lives
 }
 
 function startGame() {
@@ -69,13 +118,17 @@ function startGame() {
     }
 }
 
-
 function createBoard() {
     const board = []
     for (var i = 0; i < BOARD_SIZE; i++) {
         board[i] = []
         for (var j = 0; j < BOARD_SIZE; j++) {
             board[i][j] = createCell()
+            if (i === 10) {
+                if (j === 2 || j === 3 || j === 6
+                    || j === 7 || j === 10 || j === 11)
+                    board[i][j].gameObject = BUNKER
+            }
             if (i === 13) board[i][j].type = 'earth'
         }
     }
@@ -90,7 +143,6 @@ function renderBoard() {
             // var gameObject = gBoard[i][j].gameObject || ''
             var gameObject = gBoard[i][j].gameObject
             if (gameObject === LASER ||
-                gameObject === DEAD_ALIEN ||
                 !gameObject) gameObject = ''
 
             strHTML += `<td data-i="${i}" data-j="${j}">${gameObject}</td>`
@@ -109,6 +161,9 @@ function createCell(gameObject = null) {
 
 function updateCell(pos, gameObject = null) {
     gBoard[pos.i][pos.j].gameObject = gameObject;
+    if (gameObject === HERO && gHero.isInvul) {
+        gameObject = INVUL_HERO
+    }
     var elCell = getElCell(pos);
     elCell.innerHTML = gameObject || '';
 }
@@ -130,6 +185,9 @@ function gameOver() {
     gGame.isOn = false
     showModal()
     clearInterval(gIntervalAliens)
+    clearInterval(gAlienShotInterval)
+    clearInterval(gGame.candyInterval)
+    clearInterval(gAlienBugPlaster)
 }
 
 function showModal() {
@@ -139,3 +197,15 @@ function showModal() {
 
     document.querySelector('.modal').style.visibility = 'visible'
 }
+
+function createSpaceCandy() {
+    if (!gAliensTopRowIdx || !gGame.isOn) return
+    var randColIdx = getRandomInt(0, BOARD_SIZE)
+    gBoard[0][randColIdx].gameObject = SPACE_CANDY
+    updateCell({ i: 0, j: randColIdx }, SPACE_CANDY)
+    setTimeout(function () {
+        gBoard[0][randColIdx].gameObject = null
+        updateCell({ i: 0, j: randColIdx })
+    }, 5000)
+}
+

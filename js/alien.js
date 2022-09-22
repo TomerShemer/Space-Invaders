@@ -238,6 +238,7 @@ function alienBlinkShot(pos) {
         gIsAlienShooting = false
         hitHero()
     } else if (currCell === INVUL_HERO) {
+        SHIELD_AUDIO.play()
         clearInterval(gAlienShotInterval)
         gIsAlienShooting = false
 
@@ -249,6 +250,7 @@ function alienBlinkShot(pos) {
 }
 
 function hitHero() {
+    HIT_AUDIO.play()
     if (!gHero.lives) {
         updateCell(gHero.pos, DEAD_HERO)
         gameOver()

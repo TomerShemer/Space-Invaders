@@ -36,15 +36,19 @@ function onKeyDown(ev) {
             moveHero(-1)
             break
         case ' ':
-            if (!gHero.isShoot) shoot()
+            if (gHero.isShoot) return
+            shoot()
+            LASER_AUDIO.play()
             break
         case 'n':
             if (gHero.isShoot) return
+            LASER_AUDIO.play()
             gHero.isExplosive = true
             shoot()
             break
         case 'x':
             if (!gHero.superShotAmmo || gHero.isShoot) return
+            SUPER_LASER_AUDIO.play()
             gHero.isSuperShot = true
             gHero.superShotAmmo--
             document.querySelector('.super-ammo').innerText = gHero.superShotAmmo

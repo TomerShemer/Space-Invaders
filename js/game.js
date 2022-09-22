@@ -18,6 +18,15 @@ const SPACE_CANDY = '🍬'
 const LIFE = '💖'
 const BUNKER = '🌟'
 
+const HIT_AUDIO = new Audio('sound/glass-breaking.mp3')
+const SHIELD_AUDIO = new Audio('sound/shield-guard.mp3')
+const LASER_AUDIO = new Audio('sound/lasershot.mp3')
+const SUPER_LASER_AUDIO = new Audio('sound/swing-whoosh.mp3')
+const GAME_TRACK = new Audio('sound/retro-wave-style-track.mp3')
+
+var gIsMusicPlaying = true
+
+
 var gDifficulty = {
     easy: {
         rowLength: 4,
@@ -100,6 +109,10 @@ function init(difficulty = gDifficulty.medium) {
     document.querySelector('.score').innerText = 0
     document.querySelector('.super-ammo').innerText = gHero.superShotAmmo
     document.querySelector('.lives').innerText = gHero.lives
+
+    // Music
+    if (gIsMusicPlaying) GAME_TRACK.play()
+
 }
 
 function startGame() {
@@ -209,3 +222,16 @@ function createSpaceCandy() {
     }, 5000)
 }
 
+function playMusic() {
+    if (gIsMusicPlaying) {
+        GAME_TRACK.pause()
+        document.querySelector('.music-btn').innerText = 'Play Music'
+        document.querySelector('.music-btn').style.backgroundColor = 'green'
+        gIsMusicPlaying = false
+    } else {
+        document.querySelector('.music-btn').innerText = 'Stop Music'
+        document.querySelector('.music-btn').style.backgroundColor = 'red'
+        GAME_TRACK.play()
+        gIsMusicPlaying = true
+    }
+}

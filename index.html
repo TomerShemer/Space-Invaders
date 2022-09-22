@@ -11,16 +11,21 @@
 </head>
 
 <body onload="init()" onkeydown="onKeyDown(event)">
+    <div class="header">
 
-    <h1>Space Invaders!</h1>
-    <button class="music-btn" onclick="playMusic()">Stop Music</button>
+        <h1>Space Invaders!</h1>
 
-    <div class="stats">
-        <h3>Score: <span class="score">0</span></h3>
-        <p>Super Shot Ammo: <span class="super-ammo">3</span></p>
-        <p>Shield Ammo: <span class="shield">3</span></p>
-        <p>💖 X <span class="lives">3</span></p>
+        <div class="stats">
+            <h3>Score: <span class="score">0</span></h3>
+            <div class="player-stats">
+
+                <p>Super Shot Ammo: <span class="super-ammo">3</span></p>
+                <p>Shield Ammo: <span class="shield">3</span></p>
+                <p>💖 X <span class="lives">3</span></p>
+            </div>
+        </div>
     </div>
+    <button class="music-btn" onclick="playMusic()">Stop Music</button>
     <button onclick="init(gDifficulty.easy)">Easy<br>(12, slow)</button>
     <button onclick="init()">Medium<br>(24, normal)</button>
     <button onclick="init(gDifficulty.hard)">Hard<br>(40, fast)</button>

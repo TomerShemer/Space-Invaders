@@ -225,11 +225,11 @@ function createSpaceCandy() {
 function playMusic() {
     if (gIsMusicPlaying) {
         GAME_TRACK.pause()
-        document.querySelector('.music-btn').innerText = 'Play Music'
+        document.querySelector('.music-btn').innerText = '🔊 Play Music'
         document.querySelector('.music-btn').style.backgroundColor = 'green'
         gIsMusicPlaying = false
     } else {
-        document.querySelector('.music-btn').innerText = 'Stop Music'
+        document.querySelector('.music-btn').innerText = '🔇 Stop Music'
         document.querySelector('.music-btn').style.backgroundColor = 'red'
         GAME_TRACK.play()
         gIsMusicPlaying = true

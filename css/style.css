@@ -46,16 +46,30 @@ table {
 td {
     height: 50px;
     width: 50px;
-    outline: 1px white solid;
+}
+
+.stats {
+    background-color: #000;
+    padding: 20px;
+    width: 350px;
+    margin: auto;
+    margin-bottom: 15px;
+    border-radius: 25px;
 }
 
 .controls {
-    height: 728px;
+    height: 726px;
     width: 250px;
     background-color: #000;
-    transform: translate(25%, -100%);
-    position: absolute;
     border: 3px white solid;
+    margin-right: 20px;
+}
+
+.center-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-right: 210px;
 }
 
 .modal {

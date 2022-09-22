@@ -15,32 +15,39 @@
     <h1>Space Invaders!</h1>
     <button class="music-btn" onclick="playMusic()">Stop Music</button>
 
-    <table class="game-container">
-        <button onclick="init(gDifficulty.easy)">Easy<br>(12, slow)</button>
-        <button onclick="init()">Medium<br>(24, normal)</button>
-        <button onclick="init(gDifficulty.hard)">Hard<br>(40, fast)</button>
+    <div class="stats">
         <h3>Score: <span class="score">0</span></h3>
         <p>Super Shot Ammo: <span class="super-ammo">3</span></p>
         <p>Shield Ammo: <span class="shield">3</span></p>
         <p>💖 X <span class="lives">3</span></p>
-        <button class="start-btn" onclick="startGame()" onkeydown="this.blur()">Start Game</button>
-        <tbody></tbody>
-    </table>
-
-    <div class="controls">
-        <h3>Controls:</h3>
-        <br>
-        <p>Move: Arrow Keys</p>
-
-        <p>Shoot: 'Space'</p>
-        <p>Bomb Shot: 'n'</p>
-        <p>Fast Shot: 'x'</p>
-        <p>5s Shield: 'z'</p>
-        <br>
-        <p>Shoot candies to freeze aliens for 5s</p>
-        <br>
-        Pause Game: 'p'
     </div>
+    <button onclick="init(gDifficulty.easy)">Easy<br>(12, slow)</button>
+    <button onclick="init()">Medium<br>(24, normal)</button>
+    <button onclick="init(gDifficulty.hard)">Hard<br>(40, fast)</button>
+    <button class="start-btn" onclick="startGame()" onkeydown="this.blur()">Start Game</button>
+
+    <div class="center-container">
+        <div class="controls">
+            <h3>Controls:</h3>
+            <br>
+            <p>Move: Arrow Keys</p>
+
+            <p>Shoot: 'Space'</p>
+            <p>Bomb Shot: 'n'</p>
+            <p>Fast Shot: 'x'</p>
+            <p>5s Shield: 'z'</p>
+            <br>
+            <p>Shoot candies to freeze aliens for 5s</p>
+            <br>
+            Pause Game: 'p'
+        </div>
+        <table class="game-container">
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+    <h2>Project By Tomer Shemer</h2>
     <div class="modal">
         <h2>Modal</h2>
         <h3>Final Score: <span class="modal-score"></span></h3>

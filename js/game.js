@@ -23,6 +23,7 @@ const SHIELD_AUDIO = new Audio('sound/shield-guard.mp3')
 const LASER_AUDIO = new Audio('sound/lasershot.mp3')
 const SUPER_LASER_AUDIO = new Audio('sound/swing-whoosh.mp3')
 const GAME_TRACK = new Audio('sound/retro-wave-style-track.mp3')
+GAME_TRACK.volume = 0.2
 
 var gIsMusicPlaying = true
 
@@ -83,7 +84,6 @@ function init(difficulty = gDifficulty.medium) {
     createAliens(gBoard)
     createHero(gBoard)
     renderBoard()
-
 
     // Aliens
     clearInterval(gIntervalAliens)

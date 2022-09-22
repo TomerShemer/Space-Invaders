@@ -24,6 +24,7 @@ const LASER_AUDIO = new Audio('sound/lasershot.mp3')
 const SUPER_LASER_AUDIO = new Audio('sound/swing-whoosh.mp3')
 const GAME_TRACK = new Audio('sound/retro-wave-style-track.mp3')
 GAME_TRACK.volume = 0.2
+GAME_TRACK.loop()
 
 var gIsMusicPlaying = true
 
